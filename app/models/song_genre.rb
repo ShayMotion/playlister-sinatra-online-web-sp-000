@@ -1,4 +1,7 @@
-class SongGenre < ActiveRecord::Base
-  belongs_to :song
-  belongs_to :genre
+class Song < ActiveRecord::Base
+  include Slugifiable::InstanceMethods
+  
+  belongs_to :artist
+  has_many :song_genres
+  has_many :genres, through: :song_genres
 end

@@ -1,27 +1,10 @@
 module Slugifiable
-  module InstanceMethods
-    def slug
-      artist_name = self.name
-      slug = artist_name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-    end
+  def slug
+    slug = name.gsub(" ","-").downcase
   end
 
-  module ClassMethods
-    def find_by_slug(slug)
-      @slug = slug
-      format_slug_beginning
-      results = self.where("name LIKE ?", @short_slug)
-      results.detect do |result|
-        result.slug === @slug
-      end
-    end
-
-    def format_slug_beginning
-      slug_beginning = @slug.split("-")[0]
-      slug_beginning.prepend("%")
-      slug_beginning << "%"
-      @short_slug = slug_beginning
-    end
+  def find_by_slug(slug)
+    self.all.find {|t| t.slug == slug}
   end
-end
+end 
 end

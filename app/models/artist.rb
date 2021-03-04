@@ -1,6 +1,6 @@
 class Artist < ActiveRecord::Base
-  extend Slugification::ForClass
-  include Slugification::ForInstance
+  include Slugifiable::InstanceMethods
+
   has_many :songs
   has_many :genres, through: :songs
 end
